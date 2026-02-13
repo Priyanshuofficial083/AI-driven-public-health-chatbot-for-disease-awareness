@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Information Chatbot | Disease Info</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-heartbeat"></i> Health Information Chatbot
+            </a>
+            <div class="d-flex">
+                <a href="/dashboard" class="btn btn-light btn-sm me-2">
+                    <i class="fas fa-chart-line"></i> Dashboard
+                </a>
+                <button class="btn btn-light btn-sm" onclick="clearChat()">
+                    <i class="fas fa-trash"></i> Clear
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <!-- Sidebar -->
+            <div class="col-md-3 sidebar bg-light">
+                <div class="sidebar-content">
+                    <h5 class="mt-3"><i class="fas fa-info-circle"></i> How to Use</h5>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h6 class="card-title">Simple Instructions</h6>
+                            <p class="small">Just type the name of any disease to get:</p>
+                            <ul class="small">
+                                <li>✅ Symptoms</li>
+                                <li>✅ Prevention tips</li>
+                            </ul>
+                            <p class="small text-muted">Example: Type "diabetes" or "covid" or "malaria"</p>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h6 class="card-title">Try These</h6>
+                            <div class="example-query" onclick="sendExample('COVID-19')">
+                                COVID-19
+                            </div>
+                            <div class="example-query" onclick="sendExample('Diabetes')">
+                                Diabetes
+                            </div>
+                            <div class="example-query" onclick="sendExample('Malaria')">
+                                Malaria
+                            </div>
+                            <div class="example-query" onclick="sendExample('Dengue')">
+                                Dengue
+                            </div>
+                            <div class="example-query" onclick="sendExample('Tuberculosis')">
+                                Tuberculosis
+                            </div>
+                            <div class="example-query" onclick="sendExample('Asthma')">
+                                Asthma
+                            </div>
+                            <div class="example-query" onclick="sendExample('help')">
+                                Show all diseases
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info small">
+                        <strong><i class="fas fa-lightbulb"></i> Tip:</strong>
+                        Type "help" or "list" to see all 60 diseases in the database!
+                    </div>
+
+                    <div class="alert alert-warning small">
+                        <strong><i class="fas fa-exclamation-triangle"></i> Disclaimer:</strong>
+                        This chatbot provides educational information only. Always consult healthcare professionals for medical advice.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Chat Area -->
+            <div class="col-md-9 chat-container">
+                <div class="chat-header">
+                    <h4><i class="fas fa-comments"></i> Disease Information Chat</h4>
+                    <small>Get symptoms and prevention info for 60+ diseases</small>
+                </div>
+
+                <div id="chatBox" class="chat-box">
+                    <div class="welcome-message">
+                        <div class="text-center">
+                            <i class="fas fa-heartbeat fa-4x text-primary mb-3"></i>
+                            <h3>Welcome to Health Information Chatbot! 👋</h3>
+                            <p class="lead">Your quick reference for disease information</p>
+                            <p>Simply type any disease name to get instant information about:</p>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5><i class="fas fa-thermometer text-danger"></i> Symptoms</h5>
+                                            <p class="small">Learn what signs to look for</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5><i class="fas fa-shield-alt text-success"></i> Prevention</h5>
+                                            <p class="small">How to protect yourself</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-3 text-muted">60+ diseases in our database. Type a disease name to get started!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-area">
+                    <div class="input-group">
+                        <input type="text" id="userInput" class="form-control" 
+                               placeholder="Type a disease name (e.g., diabetes, covid, asthma)..." 
+                               onkeypress="handleKeyPress(event)">
+                        <button class="btn btn-primary" onclick="sendMessage()">
+                            <i class="fas fa-paper-plane"></i> Send
+                        </button>
+                    </div>
+                    <div id="typing-indicator" class="typing-indicator" style="display: none;">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+</body>
+</html>
